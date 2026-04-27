@@ -6,13 +6,30 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CalendarAppointment } from "./calendar-appointment";
 
+import {extractAppointment} from './actions';
+import { type AppointmentDetails } from "./schemas";
+
 export default function Page() {
   const [loading, setLoading] = useState(false);
+  const [appointment, setAppointment] = useState<AppointmentDetails | null>(null)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    // extract appointment
+    setAppointment(null);
+
+    const formData = new FormData(e.target as HTMLFormElement)
+    const input = formData.get('appointment') as string
+    
+    try{
+      const result = await extractAppointment(input)
+      setAppointment(result)
+    } catch (error){
+      console.error('Extraction failed:', error)
+    } finally {
+      setLoading(false)
+    }
+
     setLoading(false);
   };
 
@@ -24,7 +41,7 @@ export default function Page() {
             <CardTitle>Extract Appointment</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
               <Input
                 name="appointment"
                 placeholder="Enter appointment details..."
@@ -36,7 +53,7 @@ export default function Page() {
             </form>
           </CardContent>
         </Card>
-        <CalendarAppointment appointment={null} />
+        <CalendarAppointment appointment={appointment} />
       </div>
     </div>
   );

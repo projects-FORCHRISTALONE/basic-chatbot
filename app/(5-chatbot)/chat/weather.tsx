@@ -8,10 +8,10 @@ import {
 } from "lucide-react";
 
 export interface WeatherData {
-  city: string;
-  temperature: number;
-  weatherCode: number;
-  humidity: number;
+  city?: string;
+  temperature?: number;
+  weatherCode?: number;
+  humidity?: number;
 }
 
 const defaultWeatherData: WeatherData = {
@@ -84,11 +84,11 @@ export default function Weather({
         <div>
           <p className="text-6xl font-light">{weatherData.temperature}°C</p>
           <p className="text-xl mt-1">
-            {getWeatherCondition(weatherData.weatherCode)}
+            {getWeatherCondition(weatherData.weatherCode!)}
           </p>
         </div>
         <div className="ml-8" aria-hidden="true">
-          {getWeatherIcon(weatherData.weatherCode)}
+          {getWeatherIcon(weatherData.weatherCode!)}
         </div>
       </div>
       <div className="mt-6 flex items-center">

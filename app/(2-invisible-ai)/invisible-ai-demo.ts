@@ -8,14 +8,34 @@ async function smartFormFill(userInput: string) {
   console.log("\n🤖 Invisible AI: Smart Form Filling\n");
   console.log(`User types: "${userInput}"\n`);
 
-  // TODO: Create a Zod schema for calendar event details
-  // Include fields like: eventTitle, date, time, duration, location, attendees, notes
+  // Define the desired structure
+  const eventSchema = z.object({
+    eventTitle: z.string().describe('The title or purpose of the event'),
+    date: z.string().describe('The date of the event'),
+    time: z.string().nullable().describe('The time of the event'),
+    duration: z.string().nullable().describe('How long the event will last'),
+    location: z.string().nullable().describe('Where the event will take place'),
+    attendees: z.array(z.string()).nullable().describe('People attending'),
+    notes: z.string().nullable().describe('Additional notes or agenda items'),
+  })
 
-  // TODO: Use generateText with Output.object() to extract structured data from userInput
-  // The AI should parse the natural language and fill the form fields
+  //Extract structured data from natural language
+  const {output: eventDetails} = await generateText({
+    model: 'mistral/devstral-small-2',
+    prompt: `Extract calendar event details from: "${userInput}"`,
+    output: Output.object({schema: eventSchema})
+  })
 
-  // TODO: Display the extracted data in a user-friendly way
-  // Show how this saves the user time and effort
+  // Display as if it's a form being auto-filled
+  console.log('✨ AI automatically fills your form:\n');
+  console.log(`📅 Event: ${eventDetails.eventTitle}`);
+  console.log(`📆 Date: ${eventDetails.date}`);
+  if (eventDetails.time) console.log(`⏰ Time: ${eventDetails.time}`);
+  if (eventDetails.location) console.log(`📍 Location: ${eventDetails.location}`);
+  if (eventDetails.attendees) console.log(`👥 Attendees: ${eventDetails.attendees.join(', ')}`);
+  if (eventDetails.notes) console.log(`📝 Notes: ${eventDetails.notes}`);
+  
+  console.log('\n✅ Form ready to save - no manual input needed!');
 }
 
 // Example: Smart email categorization
@@ -41,11 +61,11 @@ async function runExamples() {
 
   console.log("\n" + "=".repeat(60));
 
-  // Email triage example
-  await smartEmailTriage(
-    "Re: Q4 Budget Approval Needed by EOD",
-    "Hi team, I need your approval on the attached Q4 budget proposal by end of day today. Please review the highlighted sections...",
-  );
+  // // Email triage example
+  // await smartEmailTriage(
+  //   "Re: Q4 Budget Approval Needed by EOD",
+  //   "Hi team, I need your approval on the attached Q4 budget proposal by end of day today. Please review the highlighted sections...",
+  // );
 }
 
 runExamples().catch(console.error);
