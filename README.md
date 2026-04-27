@@ -1,8 +1,8 @@
-A Basic Full-Stack Chatbot:
+# A Basic Full-Stack Chatbot
 
-✅ Streaming chat interface with useChat and streamText
-✅ Professional UI upgrade with AI Elements components
-✅ System prompts giving your AI consistent personality
-✅ Weather tool integration showing real-time data fetching
-✅ Multi-step conversations that chain tool calls and synthesis
-✅ Generative UI rendering custom React components from tool results
+*   **✅ Streaming Chat Interface:** Built with `useChat` and `streamText` for seamless, real-time responses.
+*   **✅ Professional UI Upgrade:** Enhanced using **AI Elements** components for a modern, polished look.
+*   **✅ System Prompts:** Defined to give your AI a consistent personality and tone.
+*   **✅ Weather Tool Integration:** Demonstrates real-time data fetching directly within the conversation.
+*   **✅ Multi-Step Conversations:** Support for chaining tool calls and synthesizing data over multiple turns.
+*   **✅ Generative UI:** Dynamic rendering of custom React components based on tool execution results.
