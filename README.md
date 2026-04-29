@@ -1,6 +1,6 @@
 # A Basic Full-Stack Chatbot built following Vercel's academy AI SDK Course
 
-## See [chatbot chat](@app/(5-chatbot)/chat)
+## See [app/(5-chatbot)/chat](app/(5-chatbot)/chat)
 
 *   **✅ Streaming Chat Interface:** Built with `useChat` and `streamText` for seamless, real-time responses.
 *   **✅ Professional UI Upgrade:** Enhanced using **AI Elements** components for a modern, polished look.
